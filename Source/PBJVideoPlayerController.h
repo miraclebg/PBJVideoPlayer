@@ -58,6 +58,9 @@ typedef NS_ENUM(NSInteger, PBJVideoPlayerBufferingState) {
 @property (nonatomic, readonly) PBJVideoPlayerPlaybackState playbackState;
 @property (nonatomic, readonly) PBJVideoPlayerBufferingState bufferingState;
 
+@property (nonatomic, readonly) CMTime currentTime;
+@property (nonatomic, readonly) AVPlayer *player;
+
 @property (nonatomic, readonly) NSTimeInterval maxDuration;
 
 @property (nonatomic) float volume;
@@ -67,6 +70,7 @@ typedef NS_ENUM(NSInteger, PBJVideoPlayerBufferingState) {
 - (void)playFromCurrentTime;
 - (void)pause;
 - (void)stop;
+- (void)seekToTime:(CMTime)time;
 
 @end
 
@@ -81,5 +85,6 @@ typedef NS_ENUM(NSInteger, PBJVideoPlayerBufferingState) {
 - (void)videoPlayerBufferringStateDidChange:(PBJVideoPlayerController *)videoPlayer;
 - (void)videoPlayer:(PBJVideoPlayerController *)videoPlayer didUpdatePlayBackProgress:(CGFloat)progress;
 - (CMTime)videoPlayerTimeIntervalForPlaybackProgress:(PBJVideoPlayerController *)videoPlayer;
+- (void)videoPlayerPlaybackWillStartFromPosition:(PBJVideoPlayerController *)videoPlayer position:(CMTime)position;
 
 @end

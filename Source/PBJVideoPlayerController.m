@@ -168,6 +168,14 @@ static NSString * const PBJVideoPlayerControllerReadyForDisplay = @"readyForDisp
     return maxDuration;
 }
 
+- (CMTime)currentTime {
+    return _player.currentTime;
+}
+
+- (AVPlayer*)player {
+    return _player;
+}
+
 - (float)volume {
     return _player.volume;
 }
@@ -376,6 +384,16 @@ static NSString * const PBJVideoPlayerControllerReadyForDisplay = @"readyForDisp
         [_delegate videoPlayerPlaybackWillStartFromBeginning:self];
     }
     [_player seekToTime:kCMTimeZero];
+    [self playFromCurrentTime];
+}
+
+- (void)seekToTime:(CMTime)time {
+    DLog(@"playing from specific location");
+    
+    if ([_delegate respondsToSelector:@selector(videoPlayerPlaybackWillStartFromPosition:position:)]) {
+        [_delegate videoPlayerPlaybackWillStartFromPosition:self position:time];
+    }
+    [_player seekToTime:time];
     [self playFromCurrentTime];
 }
 
